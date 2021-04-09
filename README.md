@@ -20,8 +20,10 @@ To allow the most flexibility, response headers can all be passed in in a single
 
 ## Example usage
 
+```
 uses: actions/serve-static-action
 with:
-	artifact-dir-path: dist/artifacts
-	port: 9000
-	response-headers: "Access-Control-Allow-Origin~~*@@Content-Type~~text/html; charset=UTF-8"
+  artifact-dir-path: dist/artifacts
+  port: 9000
+  response-headers: "Access-Control-Allow-Origin~~*@@Content-Type~~text/html; charset=UTF-8"
+```
