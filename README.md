@@ -1,6 +1,6 @@
 # serve-static-action
 
-This action will serve static files from a specified localhost port.
+This action utilizes [`serve-static`](https://github.com/expressjs/serve-static) to serve files in a specified directory on localhost.
 
 ## Inputs
 

@@ -32,40 +32,42 @@ try {
   const responseHeaders = core.getInput('response-headers');
   const port = core.getInput('port');
 
-  // Validate inputs
-  validatePort(port);
-  const portNum = +port;
+  console.log('Port is ' + port);
 
-  // Set headers
-  let options = {};
-  if (responseHeaders) {
-    const headers = responseHeaders.split(RESPONSE_HEADER_DELIMETER);
+  // // Validate inputs
+  // validatePort(port);
+  // const portNum = +port;
 
-    function setHeaders(res) {
-      headers.forEach((header) => {
-        const headerKeyValuePair = header.split(
-          RESPONSE_HEADER_KEY_VALUE_DELIMETER
-        );
-        res.setHeader(headerKeyValuePair[0], headerKeyValuePair[1]);
-      });
-    }
+  // // Set headers
+  // let options = {};
+  // if (responseHeaders) {
+  //   const headers = responseHeaders.split(RESPONSE_HEADER_DELIMETER);
 
-    options = {
-      setHeaders: setHeaders,
-    };
-  }
+  //   function setHeaders(res) {
+  //     headers.forEach((header) => {
+  //       const headerKeyValuePair = header.split(
+  //         RESPONSE_HEADER_KEY_VALUE_DELIMETER
+  //       );
+  //       res.setHeader(headerKeyValuePair[0], headerKeyValuePair[1]);
+  //     });
+  //   }
 
-  // Serve up public folder
-  var serve = serveStatic(artifactDirPath, options);
+  //   options = {
+  //     setHeaders: setHeaders,
+  //   };
+  // }
 
-  // Create server
-  var server = http.createServer(function onRequest(req, res) {
-    serve(req, res, finalhandler(req, res));
-  });
+  // // Serve up public folder
+  // var serve = serveStatic(artifactDirPath, options);
 
-  // Listen
-  console.log(`Serving files from ${artifactDirPath} on localhost:${port}`);
-  server.listen(portNum);
+  // // Create server
+  // var server = http.createServer(function onRequest(req, res) {
+  //   serve(req, res, finalhandler(req, res));
+  // });
+
+  // // Listen
+  // console.log(`Serving files from ${artifactDirPath} on localhost:${port}`);
+  // server.listen(portNum);
 } catch (error) {
   core.setFailed(error.message);
 }
