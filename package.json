@@ -1,0 +1,25 @@
+{
+  "name": "serve-static-action",
+  "version": "1.0.0",
+  "description": "GitHub Action to serve files from localhost",
+  "main": "index.js",
+  "scripts": {
+    "package": "npx @vercel/ncc@0.28.0 build index.js --license licenses.txt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mellis481/serve-static-action.git"
+  },
+  "keywords": [],
+  "author": "Michael Ellis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mellis481/serve-static-action/issues"
+  },
+  "homepage": "https://github.com/mellis481/serve-static-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "serve-static": "^1.14.1"
+  }
+}

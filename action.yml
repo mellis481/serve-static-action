@@ -1,0 +1,16 @@
+name: 'Serve static'
+description: 'Serve static files from localhost'
+inputs:
+  artifact-dir-path:
+    description: 'Path to the directory containing files to be served'
+    required: true
+  port:
+    description: 'Port on localhost to serve files'
+    required: false
+    default: '8080'
+  response-headers:
+    description: 'Delimited list of response headers'
+    required: false
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
