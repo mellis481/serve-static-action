@@ -1,12 +1,48 @@
 const core = require('@actions/core');
 const finalhandler = require('finalhandler');
+const fs = require('fs');
 const http = require('http');
+const path = require('path');
 const serveStatic = require('serve-static');
 
 const PORT_MIN = 0;
 const PORT_MAX = 65353;
 const RESPONSE_HEADER_DELIMETER = '@@';
 const RESPONSE_HEADER_KEY_VALUE_DELIMETER = '~~';
+const RECURSE_THROUGH_ARTIFACT_DIR = false;
+
+const validateArtifactDirectoryPath = (artifactDirPath) => {
+  if (!fs.existsSync(artifactDirPath)) {
+    throw new Error(
+      `Expected to find a folder at "${artifactDirPath}", but did not`
+    );
+  }
+
+  const findFilesAtLevel = (dir) => {
+    fs.readdirSync(dir).forEach((name) => {
+      const filePath = path.join(currentDirPath, name);
+      const stat = fs.statSync(filePath);
+      if (stat.isFile()) {
+        files.push(filePath);
+      } else if (stat.isDirectory()) {
+        if (RECURSE_THROUGH_ARTIFACT_DIR) {
+          findFilesAtLevel(filePath);
+        }
+      }
+    });
+  };
+
+  const files = [];
+  findFilesAtLevel(artifactDirPath);
+
+  if (!files.length) {
+    throw new Error(`Found 0 files in ${artifactDirPath}`);
+  }
+
+  console.log(
+    `Found the following files in ${artifactDirPath}: ${files.join(', ')}`
+  );
+};
 
 const validatePort = (port) => {
   const isInt = (val) => {
@@ -32,11 +68,10 @@ try {
   const responseHeaders = core.getInput('response-headers');
   const port = core.getInput('port');
 
-  console.log('Port is ' + port);
-
-  // // Validate inputs
-  // validatePort(port);
-  // const portNum = +port;
+  // Validate inputs
+  validateArtifactDirectoryPath(artifactDirPath);
+  validatePort(port);
+  const portNum = +port;
 
   // // Set headers
   // let options = {};
@@ -65,8 +100,8 @@ try {
   //   serve(req, res, finalhandler(req, res));
   // });
 
-  // // Listen
-  // console.log(`Serving files from ${artifactDirPath} on localhost:${port}`);
+  // Listen
+  console.log(`Serving files on localhost:${port}`);
   // server.listen(portNum);
 } catch (error) {
   core.setFailed(error.message);
