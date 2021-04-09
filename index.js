@@ -8,13 +8,13 @@ const PORT_MAX = 65353;
 const RESPONSE_HEADER_DELIMETER = '@@';
 const RESPONSE_HEADER_KEY_VALUE_DELIMETER = '~~';
 
-const validatePort = (value) => {
+const validatePort = (port) => {
   const isInt = (val) => {
     var x = parseFloat(val);
     return !isNaN(val) && (x | 0) === x;
   };
 
-  if (!isInt()) {
+  if (!isInt(port)) {
     throw new Error(`Specified port (${port}) is not an integer`);
   }
 
