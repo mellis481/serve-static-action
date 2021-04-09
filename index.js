@@ -1,6 +1,4 @@
 const core = require('@actions/core');
-// const github = require('@actions/github');
-
 const finalhandler = require('finalhandler');
 const http = require('http');
 const serveStatic = require('serve-static');
