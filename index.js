@@ -20,7 +20,7 @@ const validateArtifactDirectoryPath = (artifactDirPath) => {
 
   const findFilesAtLevel = (dir) => {
     fs.readdirSync(dir).forEach((name) => {
-      const filePath = path.join(currentDirPath, name);
+      const filePath = path.join(dir, name);
       const stat = fs.statSync(filePath);
       if (stat.isFile()) {
         files.push(filePath);
